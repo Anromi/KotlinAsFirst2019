@@ -128,7 +128,18 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    val q1 = (kingX - kingY) == (bishopX - bishopY)
+    val q2 = (kingX + kingY) == (bishopX + bishopY)
+    val q3 = kingX == rookX
+    val q4 = kingY == rookY
+    return when {
+        !q1 && !q2 && !q3 && !q4 -> 0
+        !q1 && !q2 && (q3 || q4) -> 1
+        (q1 || q2) && !q3 && !q4 -> 2
+        else -> 3
+    }
+}
 
 /**
  * Простая
