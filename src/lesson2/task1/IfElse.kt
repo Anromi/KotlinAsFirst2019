@@ -3,9 +3,9 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
 import kotlin.math.max
 import kotlin.math.sqrt
-
 /**
  * Пример
  *
@@ -149,7 +149,36 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val w1: Double
+    val w2: Double
+    val w3: Double
+    when {
+        a == maxOf(a, b, c) -> {
+            w1 = a
+            w2 = b
+            w3 = c
+        }
+        b == maxOf(a, b, c) -> {
+            w1 = b
+            w2 = a
+            w3 = c
+        }
+        else -> {
+            w1 = c
+            w2 = a
+            w3 = b
+        }
+    }
+    if (a + b < c || b + c < a || a + c < b)  {
+        return -1
+    }
+    return when {
+        sqr(w2) + sqr(w3) > sqr(w1) -> 0
+        sqr(w2) + sqr(w3) == sqr(w1) -> 1
+        else -> 2
+    }
+}
 
 /**
  * Средняя
