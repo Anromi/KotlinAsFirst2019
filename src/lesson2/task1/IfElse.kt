@@ -86,7 +86,7 @@ fun timeForHalfWay(
     val s = (v1 * t1 + v2 * t2 + v3 * t3) / 2
     return when {
         s < v1 * t1 -> s / v1
-        s > v1 * t1 + v2 * t2 -> t1 + t2 +(s - v1 * t1 - v2 * t2) / v3
+        s > v1 * t1 + v2 * t2 -> t1 + t2 + (s - v1 * t1 - v2 * t2) / v3
         else -> t1 + (s - v1 * t1) / v2
     }
 }
@@ -170,7 +170,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
             w3 = b
         }
     }
-    if (a + b < c || b + c < a || a + c < b)  {
+    if (a + b < c || b + c < a || a + c < b) {
         return -1
     }
     return when {
