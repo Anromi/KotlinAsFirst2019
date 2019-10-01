@@ -5,6 +5,7 @@ package lesson2.task1
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 /**
  * Пример
@@ -193,14 +194,18 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     val r2: Int = d - a
     val r3: Int = d - c
     val r4: Int = b - a
-    val r5 = c - b
-    val r6 = if (b > c) r1 else r5
+    val r5: Int = c - b
+    val r6: Int = if (b > c) r1 else r5
+    val r7: Int = max(a, b) - min(d, c)
+    val r8: Int = max(d, c) - min(a, b)
     return when {
         c in (a + 1) until b && b < d -> r1
         a in (c + 1) until d && d < b -> r2
         d in (a + 1) until b -> r3
         b in (c + 1) until d -> r4
         (a == c && b == d) -> r6
+        (b == d) -> r7
+        (a == c) -> r8
         c == b -> r1
         d == a -> r2
         else -> -1

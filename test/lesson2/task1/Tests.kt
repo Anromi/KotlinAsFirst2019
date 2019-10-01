@@ -80,7 +80,7 @@ class Tests {
     @Test
     @Tag("Normal")
     fun segmentLength() {
-        assertEquals(1, segmentLength(0, 1, 0, 1))
+        assertEquals(4, segmentLength(0, 5, 1, 5))
         assertEquals(-1, segmentLength(1, 2, 3, 4))
         assertEquals(-1, segmentLength(5, 7, 1, 3))
         assertEquals(0, segmentLength(1, 2, 2, 4))
