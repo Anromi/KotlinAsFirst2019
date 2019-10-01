@@ -35,7 +35,7 @@ fun isNumberHappy(number: Int): Boolean {
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
     val q1: Boolean = (x1 + y1) == (x2 + y2)
-    val q2: Boolean = (x1 + y1) == (x2 + y2)
+    val q2: Boolean = (x1 - y1) == (x2 - y2)
     return when {
         (q1 || q2) || (x1 == x2 || y1 == y2) -> true
         else -> false

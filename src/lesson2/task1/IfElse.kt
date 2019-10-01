@@ -193,11 +193,14 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     val r2: Int = d - a
     val r3: Int = d - c
     val r4: Int = b - a
+    val r5 = c - b
+    val r6 = if (b > c) r1 else r5
     return when {
         c in (a + 1) until b && b < d -> r1
         a in (c + 1) until d && d < b -> r2
         d in (a + 1) until b -> r3
         b in (c + 1) until d -> r4
+        (a == c && b == d) -> r6
         c == b -> r1
         d == a -> r2
         else -> -1

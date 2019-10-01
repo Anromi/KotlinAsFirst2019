@@ -25,6 +25,7 @@ class Tests {
     @Test
     @Tag("Easy")
     fun queenThreatens() {
+        assertTrue(queenThreatens(1, 1, 2, 2))
         assertTrue(queenThreatens(3, 6, 7, 6))
         assertTrue(queenThreatens(8, 1, 1, 8))
         assertFalse(queenThreatens(7, 6, 5, 7))
