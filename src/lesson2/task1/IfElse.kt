@@ -201,6 +201,5 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
         c == b -> r1
         d == a -> r2
         else -> -1
-
     }
 }
