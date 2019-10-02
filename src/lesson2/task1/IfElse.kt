@@ -196,18 +196,28 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     val r4: Int = b - a
     val r5: Int = c - b
     val r6: Int = if (b > c) r1 else r5
+
     val r7: Int = max(a, b) - min(d, c)
     val r8: Int = max(d, c) - min(a, b)
+
+    val r9: Int = min(a, b) + max(d, c)
+    val r10: Int = max(d, c) + max(a, b)
     return when {
         c in (a + 1) until b && b < d -> r1
         a in (c + 1) until d && d < b -> r2
         d in (a + 1) until b -> r3
         b in (c + 1) until d -> r4
         (a == c && b == d) -> r6
-        (b == d) -> r7
-        (a == c) -> r8
         c == b -> r1
         d == a -> r2
+        (d == b) && (a > c) && (a < 0 || b < 0 || c < 0 || d < 0) -> r9
+        (b == d) && (a > c) && (a >= 0 && b >= 0 && c >= 0 && d >= 0) -> r8
+        (d == b) && (a < c) && (a < 0 || b < 0 || c < 0 || d < 0) -> r10
+        (d == b) && (a < c) && (a >= 0 && b >= 0 && c >= 0 && d >= 0)  -> r7
+        (a == c) && (d > b) && (a < 0 || b < 0 || c < 0 || d < 0) -> r10
+        (a == c) && (d > b) && (a >= 0 && b >= 0 && c >= 0 && d >= 0)  -> r8
+        (a == c) && (d < b) && (a < 0 || b < 0 || c < 0 || d < 0) -> r9
+        (a == c) && (d < b) && (a >= 0 && b >= 0 && c >= 0 && d >= 0)  -> r7
         else -> -1
     }
 }
