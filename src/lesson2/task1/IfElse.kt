@@ -200,8 +200,8 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     val r7: Int = max(a, b) - min(d, c)
     val r8: Int = max(d, c) - min(a, b)
 
-    val r9: Int = min(a, b) + max(d, c)
-    val r10: Int = max(d, c) + max(a, b)
+    val r9: Int = max(d, c) - min(a, b)
+    val r10: Int = max(a, b) - min(d, c)
     return when {
         c in (a + 1) until b && b < d -> r1
         a in (c + 1) until d && d < b -> r2
