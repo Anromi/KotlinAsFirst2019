@@ -2,7 +2,6 @@
 
 package lesson3.task1
 
-import kotlin.math.max
 import kotlin.math.sqrt
 
 /**
@@ -135,11 +134,7 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var b = 1
-    while ((n % b != 0) || (b <= n+1/2)){
-        b++
-    }
-    return b
+    return n / minDivisor(n)
 }
 
 /**
