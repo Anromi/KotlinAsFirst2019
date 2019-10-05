@@ -157,13 +157,10 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    var k = 1
-    val q: Boolean = (m <= k*k && k*k <= n) /* m <= k*k <= n */
-    while ((!q) && (m != 0 && n != 0)) {
-        k++
-        if (q) return false
+    for(i in m..n) {
+        if (sqr(sqrt(i.toDouble()).toInt()) == i) return true
     }
-    return true
+    return false
 }
 
 /**
