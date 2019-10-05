@@ -159,7 +159,7 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 fun squareBetweenExists(m: Int, n: Int): Boolean {
     var k = 1
     val q: Boolean = (m <= k*k && k*k <= n) /* m <= k*k <= n */
-    while (!q) {
+    while ((!q) && (m != 0 && n != 0)) {
         k++
         if (q) return false
     }
