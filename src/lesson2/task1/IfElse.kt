@@ -199,10 +199,10 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     val r9: Int = max(d, c) - min(a, b)
     val r10: Int = max(a, b) - min(d, c)
     return when {
-        c in (a + 1) until b && b < d -> r1
+        (c in (a + 1) until b && b < d) || ((a == c || b == c) && c == b) -> r1
         a in (c + 1) until d && d < b || (d == a) -> r2
         d in (a + 1) until b -> r3
-        b in (c + 1) until d -> r4
+        (b in (c + 1) until d) || ((b == a || c == a) && a == d) -> r4
         (a == c && b == d) -> r6
         ((d == b) && (a > c) || (a == c) && (d < b)) && (a < 0 || b < 0 || c < 0 || d < 0) -> r9
         ((b == d) && (a > c) || (a == c) && (d > b)) && (a >= 0 && b >= 0 && c >= 0 && d >= 0) -> r8
