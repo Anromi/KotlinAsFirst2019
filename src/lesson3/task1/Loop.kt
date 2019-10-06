@@ -216,7 +216,7 @@ fun revert(n: Int): Int {
     var q = 0
     var i: Int
     while (n > 0) {
-        i = number % 1
+        i = number % 10
         q = q * 10 + i
         number /= 10
     }

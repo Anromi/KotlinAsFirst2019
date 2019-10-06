@@ -67,7 +67,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
 fun ageDescription(age: Int): String {
     return when {
         (age % 10 == 1) && (age != 11) && (age % 100 != 11) -> "$age год"
-        (5 > age % 10) && (age % 10 > 1) && (age !in 12..14) && (age !in 112..114)-> "$age года"
+        (5 > age % 10) && (age % 10 > 1) && (age !in 12..14) && (age !in 112..114) -> "$age года"
         else -> "$age лет"
     }
 }
@@ -106,12 +106,13 @@ fun whichRookThreatens(
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
 ): Int {
+    val a = (kingX != rookX1) && (kingY != rookY1)
+    val q = (kingX != rookX2) && (kingY != rookY2)
     return when {
-        ((kingX != rookX1) && (kingY != rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 0
-        ((kingX == rookX1) || (kingY == rookY1)) && ((kingX != rookX2) && (kingY != rookY2)) -> 1
-        ((kingX != rookX1) && (kingY != rookY1)) && ((kingX == rookX2) || (kingY == rookY2)) -> 2
+        a && q -> 0
+        ((kingX == rookX1) || (kingY == rookY1)) && q -> 1
+        a && ((kingX == rookX2) || (kingY == rookY2)) -> 2
         else -> 3
-
     }
 }
 
@@ -151,22 +152,19 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val w1: Double
+    val w1: Double = maxOf(a, b, c)
     val w2: Double
     val w3: Double
     when {
         a == maxOf(a, b, c) -> {
-            w1 = a
             w2 = b
             w3 = c
         }
         b == maxOf(a, b, c) -> {
-            w1 = b
             w2 = a
             w3 = c
         }
         else -> {
-            w1 = c
             w2 = a
             w3 = b
         }
@@ -194,30 +192,22 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     val r2: Int = d - a
     val r3: Int = d - c
     val r4: Int = b - a
-    val r5: Int = c - b
-    val r6: Int = if (b > c) r1 else r5
+    val r6: Int = if (b > c) r1 else -r1
 
-    val r7: Int = max(a, b) - min(d, c)
     val r8: Int = max(d, c) - min(a, b)
 
     val r9: Int = max(d, c) - min(a, b)
     val r10: Int = max(a, b) - min(d, c)
     return when {
         c in (a + 1) until b && b < d -> r1
-        a in (c + 1) until d && d < b -> r2
+        a in (c + 1) until d && d < b || (d == a) -> r2
         d in (a + 1) until b -> r3
         b in (c + 1) until d -> r4
         (a == c && b == d) -> r6
-        c == b -> r1
-        d == a -> r2
-        (d == b) && (a > c) && (a < 0 || b < 0 || c < 0 || d < 0) -> r9
-        (b == d) && (a > c) && (a >= 0 && b >= 0 && c >= 0 && d >= 0) -> r8
-        (d == b) && (a < c) && (a < 0 || b < 0 || c < 0 || d < 0) -> r10
-        (d == b) && (a < c) && (a >= 0 && b >= 0 && c >= 0 && d >= 0)  -> r7
-        (a == c) && (d > b) && (a < 0 || b < 0 || c < 0 || d < 0) -> r10
-        (a == c) && (d > b) && (a >= 0 && b >= 0 && c >= 0 && d >= 0)  -> r8
-        (a == c) && (d < b) && (a < 0 || b < 0 || c < 0 || d < 0) -> r9
-        (a == c) && (d < b) && (a >= 0 && b >= 0 && c >= 0 && d >= 0)  -> r7
+        ((d == b) && (a > c) || (a == c) && (d < b)) && (a < 0 || b < 0 || c < 0 || d < 0) -> r9
+        ((b == d) && (a > c) || (a == c) && (d > b)) && (a >= 0 && b >= 0 && c >= 0 && d >= 0) -> r8
+        ((a == c) && (d > b) || (d == b) && (a < c)) && (a < 0 || b < 0 || c < 0 || d < 0) -> r10
+        (c == b) || ((d == b) && (a < c) || (a == c) && (d < b)) && (a >= 0 && b >= 0 && c >= 0 && d >= 0) -> r1
         else -> -1
     }
 }
