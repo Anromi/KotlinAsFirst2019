@@ -152,6 +152,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
     return when {
         (minDivisor(m) != m && minDivisor(n) != n) && minDivisor(m) != minDivisor(n) -> true
         (minDivisor(m) == m && minDivisor(n) == n) && minDivisor(m) != minDivisor(n) -> true
+        m == 1 && n == 1 -> true
         else -> false
     }
 }
