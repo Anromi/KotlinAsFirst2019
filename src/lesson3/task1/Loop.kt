@@ -148,14 +148,7 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    return when {
-        (minDivisor(m) != m && minDivisor(n) != n) && minDivisor(m) != minDivisor(n) -> true
-        (minDivisor(m) == m && minDivisor(n) == n) && minDivisor(m) != minDivisor(n) -> true
-        m == 1 && n == 1 -> true
-        else -> false
-    }
-}
+fun isCoPrime(m: Int, n: Int): Boolean = TODO()
 
 /**
  * Простая
@@ -218,7 +211,17 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var number = n
+    var q = 0
+    var i: Int
+    while (n > 0) {
+        i = number % 1
+        q = q * 10 + i
+        number /= 10
+    }
+    return q
+}
 
 /**
  * Средняя
