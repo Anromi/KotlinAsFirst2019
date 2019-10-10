@@ -110,8 +110,8 @@ fun whichRookThreatens(
     val q = (kingX != rookX2) && (kingY != rookY2)
     return when {
         a && q -> 0
-        ((kingX == rookX1) || (kingY == rookY1)) && q -> 1
-        a && ((kingX == rookX2) || (kingY == rookY2)) -> 2
+        !a && q -> 1
+        a && !q -> 2
         else -> 3
     }
 }
@@ -156,11 +156,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val w2: Double
     val w3: Double
     when {
-        a == maxOf(a, b, c) -> {
+        a == w1 -> {
             w2 = b
             w3 = c
         }
-        b == maxOf(a, b, c) -> {
+        b == w1 -> {
             w2 = a
             w3 = c
         }
