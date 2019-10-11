@@ -188,26 +188,16 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    val r1: Int = b - c
-    val r2: Int = d - a
-    val r3: Int = d - c
-    val r4: Int = b - a
-    val r6: Int = if (b > c) r1 else -r1
-
-    val r8: Int = max(d, c) - min(a, b)
-
-    val r9: Int = max(d, c) - min(a, b)
-    val r10: Int = max(a, b) - min(d, c)
+    val r1= b - c
+    val r2= d - a
+    val r3= d - c
+    val r4= b - a
+    val q= b >= c && d >= a
     return when {
-        (c in (a + 1) until b && b < d) || ((a == c || b == c) && c == b) -> r1
-        a in (c + 1) until d && d < b || (d == a) -> r2
-        d in (a + 1) until b -> r3
-        (b in (c + 1) until d) || ((b == a || c == a) && a == d) -> r4
-        (a == c && b == d) -> r6
-        ((d == b) && (a > c) || (a == c) && (d < b)) && (a < 0 || b < 0 || c < 0 || d < 0) -> r9
-        ((b == d) && (a > c) || (a == c) && (d > b)) && (a >= 0 && b >= 0 && c >= 0 && d >= 0) -> r8
-        ((a == c) && (d > b) || (d == b) && (a < c)) && (a < 0 || b < 0 || c < 0 || d < 0) -> r10
-        (c == b) || ((d == b) && (a < c) || (a == c) && (d < b)) && (a >= 0 && b >= 0 && c >= 0 && d >= 0) -> r1
+        q && c >= a && b >= d -> r3
+        q && c >= a && d >= b -> r1 /*условие надо поменять на d >= b*/
+        q && b >= d -> r2
+        q && d >= b -> r4
         else -> -1
     }
 }
