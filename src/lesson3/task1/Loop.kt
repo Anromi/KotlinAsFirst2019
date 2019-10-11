@@ -2,10 +2,7 @@
 
 package lesson3.task1
 
-import com.sun.org.apache.xpath.internal.operations.Bool
 import lesson1.task1.sqr
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -73,13 +70,14 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var count = 0
-    var number= n
+    var number = n
     do {
         count++
         number /= 10
     } while (number != 0)
     return count
 }
+
 /**
  * Простая
  *
@@ -157,7 +155,7 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    for(i in m..n) {
+    for (i in m..n) {
         if (sqr(sqrt(i.toDouble()).toInt()) == i) return true
     }
     return false

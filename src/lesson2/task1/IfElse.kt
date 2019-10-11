@@ -5,8 +5,8 @@ package lesson2.task1
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.sqrt
+
 /**
  * Пример
  *
@@ -188,11 +188,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    val r1= b - c
-    val r2= d - a
-    val r3= d - c
-    val r4= b - a
-    val q= b >= c && d >= a
+    val r1 = b - c
+    val r2 = d - a
+    val r3 = d - c
+    val r4 = b - a
+    val q = b >= c && d >= a
     return when {
         q && c >= a && b >= d -> r3
         q && c >= a && d >= b -> r1 /*условие надо поменять на d >= b*/
