@@ -211,7 +211,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
 fun revert(n: Int): Int {
     var number = n
     var q = 0
-    while (n >= 0) {
+    while (number >= 0) {
         q = q * 10 + number % 10
         number /= 10
         if (number == 0) break
