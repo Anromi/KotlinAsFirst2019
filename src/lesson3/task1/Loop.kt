@@ -5,6 +5,16 @@ package lesson3.task1
 import lesson1.task1.sqr
 import kotlin.math.sqrt
 
+fun isPrime1(m: Int, n: Int): Int {
+    var a = n
+    var b = m
+    while (a != b) {
+        if (b > a)
+            b-= a
+        else a -= b
+    }
+    return b
+}
 /**
  * Пример
  *
@@ -145,7 +155,7 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean = isPrime1(m, n) == 1
 
 /**
  * Простая
@@ -177,7 +187,17 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var a = x
+    var count = 0
+    while (a != 1) {
+        if (a % 2 == 0)
+            a /= 2
+        else a = 3 * a + 1
+        count ++
+    }
+    return count
+}
 
 /**
  * Средняя
@@ -228,7 +248,15 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var a = n
+    var b = 0
+    while ( a != 0) {
+        b = b * 10 + (a % 10)
+        a /= 10
+    }
+    return n == b
+}
 
 /**
  * Средняя
