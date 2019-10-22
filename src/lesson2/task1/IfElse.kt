@@ -195,7 +195,7 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     val q = b >= c && d >= a
     return when {
         q && c >= a && b >= d -> r3
-        q && c >= a && d >= b -> r1 /*условие надо поменять на d >= b*/
+        q && c >= a && d >= b -> r1
         q && b >= d -> r2
         q && d >= b -> r4
         else -> -1
