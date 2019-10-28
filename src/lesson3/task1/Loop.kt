@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 fun isPrime1(m: Int, n: Int): Int {
@@ -23,7 +24,7 @@ fun isPrime1(m: Int, n: Int): Int {
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result *= i // Please do not fix in master
+        result = result * i // Please do not fix in master
     }
     return result
 }

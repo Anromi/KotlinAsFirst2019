@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson3.task1.minDivisor
 import kotlin.math.sqrt
 
 /**
@@ -160,7 +161,18 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int = TODO()
+fun polynom(p: List<Int>, x: Int): Int {
+    var ax = 1
+    var q: Int
+    val result = mutableListOf<Int>()
+    if (p.isEmpty() || p.size == 1) return p.sum()
+    for (i in p) {
+        q = i * ax
+        result.add(q)
+        ax *= x
+    }
+    return result.sum()
+}
 
 /**
  * Средняя
@@ -181,7 +193,17 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var x = n
+    var a = 2
+    val l = mutableListOf<Int>()
+    while (x >= a) {
+        a = minDivisor(x)
+        x /= a
+        l.add(a)
+    }
+    return l
+}
 
 /**
  * Сложная
@@ -190,7 +212,7 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
