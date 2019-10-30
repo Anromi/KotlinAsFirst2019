@@ -225,10 +225,11 @@ fun convert(n: Int, base: Int): List<Int> {
     var a = n
     val list = mutableListOf<Int>()
     var star: Int
-    while (a >= 1) {
+    while (a >= 0) {
         star = a % base
         list.add(0, star)
         a /= base
+        if (a == 0) break
     }
     return list
 }
