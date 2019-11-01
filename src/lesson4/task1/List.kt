@@ -2,8 +2,10 @@
 
 package lesson4.task1
 
+import kotlinx.html.ARel.index
 import lesson1.task1.discriminant
 import lesson3.task1.minDivisor
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -254,7 +256,16 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int {
+    var a = digits.size-1
+    var b = 0
+    if (digits.size == 1) return digits.first()
+    for (element in digits) {
+        b += element * base.toDouble().pow(a).toInt()
+        a--
+    }
+    return b
+}
 
 /**
  * Сложная
