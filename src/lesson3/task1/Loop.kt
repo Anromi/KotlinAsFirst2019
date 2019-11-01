@@ -3,7 +3,9 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
+import kotlin.math.PI
 import kotlin.math.abs
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 fun isPrime1(m: Int, n: Int): Int {
@@ -209,7 +211,22 @@ fun collatzSteps(x: Int): Int {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    val a = x % (2 * PI)
+    var result = x
+    var sin = 0.0
+    var c = 1
+    var count = 1
+    while (abs(result) >= eps) {
+        result = if (count % 2 == 0) {
+            -(a.pow(c) / factorial(c))
+        } else a.pow(c) / factorial(c)
+        c += 2
+        count++
+        sin += result
+    }
+    return sin
+}
 
 /**
  * Средняя
@@ -220,7 +237,22 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    val a = x % (2 * PI)
+    var result = x
+    var cos = 1.0
+    var c = 2
+    var count = 2
+    while (abs(result) >= eps) {
+        result = if (count % 2 == 0) {
+            -(a.pow(c) / factorial(c))
+        } else a.pow(c) / factorial(c)
+        c += 2
+        count++
+        cos += result
+    }
+    return cos
+}
 
 /**
  * Средняя
