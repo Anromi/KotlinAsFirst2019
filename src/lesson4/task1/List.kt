@@ -5,6 +5,7 @@ package lesson4.task1
 import kotlinx.html.ARel.index
 import lesson1.task1.discriminant
 import lesson3.task1.minDivisor
+import java.lang.StringBuilder
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -296,7 +297,52 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+
+fun roman(n: Int): String {
+    val list = listOf(
+        "", "M", "MM", "MMM", "", "", "", "", "", "", "",
+        "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM",
+        "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC",
+        "", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"
+    )
+    val res = mutableListOf<String>()
+    var new = n
+    if (new > 1000) {
+        val n2 = (n / 1000) % 10
+        for (i in list.indices) {
+            if (i == n2) res.add(list[i])
+        }
+        new -= n2 * 1000
+    }
+    if (new > 100) {
+        var n1 = (n / 100) % 10
+        for (i in list.indices) {
+            n1 += 10
+            if (i == n1) res.add(list[i])
+            n1 -= 10
+        }
+        new -= n1 * 100
+    }
+    if (new > 10) {
+        var n3 = (n / 10) % 10
+        for (i in list.indices) {
+            n3 += 20
+            if (i == n3) res.add(list[i])
+            n3 -= 20
+        }
+        new -= n3 * 10
+    }
+    if (new > 0) {
+        var n4 = n % 10
+        for (i in list.indices) {
+            n4 += 30
+            if (i == n4) res.add(list[i])
+            n4 -= 30
+        }
+        new -= n4
+    }
+    return res.joinToString(separator = "")
+}
 
 /**
  * Очень сложная
