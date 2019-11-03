@@ -112,9 +112,9 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
     for ((q, w) in a) {
-        if (b[q] == w) return true
+        if (b[q] != w) return false
     }
-    return false
+    return true
 }
 
 /**
