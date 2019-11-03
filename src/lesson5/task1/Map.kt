@@ -33,8 +33,7 @@ fun shoppingListCost(
  */
 fun filterByCountryCode(
     phoneBook: MutableMap<String, String>,
-    countryCode: String
-) {
+    countryCode: String) {
     val namesToRemove = mutableListOf<String>()
 
     for ((name, phone) in phoneBook) {
@@ -91,7 +90,15 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
+fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
+    val res = mutableMapOf<Int, MutableList<String>>()
+    for ((name, assessment) in grades) {
+        val item = res[assessment]
+        if (item == null) res[assessment] = mutableListOf(name)
+        else item.add(name)
+    }
+    return res
+}
 
 /**
  * Простая
@@ -103,7 +110,12 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
+    for ((q, w) in b) {
+        if (q in a && a.containsValue(w)) return true
+    }
+    return false
+}
 
 /**
  * Простая
