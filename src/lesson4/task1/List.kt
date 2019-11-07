@@ -235,12 +235,11 @@ fun convert(n: Int, base: Int): List<Int> {
     var a = n
     val list = mutableListOf<Int>()
     var star: Int
-    while (a >= 0) {
+    do {
         star = a % base
         list.add(0, star)
         a /= base
-        if (a == 0) break
-    }
+    } while (a > 0)
     return list
 }
 
@@ -265,9 +264,8 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    var a = digits.size-1
+    var a = digits.size - 1
     var b = 0
-    if (digits.size == 1) return digits.first()
     for (element in digits) {
         b += element * base.toDouble().pow(a).toInt()
         a--
