@@ -305,14 +305,14 @@ fun roman(n: Int): String {
     )
     val res = mutableListOf<String>()
     var new = n
-    if (new > 1000) {
+    if (new >= 1000) {
         val n2 = (n / 1000) % 10
         for (i in list.indices) {
             if (i == n2) res.add(list[i])
         }
         new -= n2 * 1000
     }
-    if (new > 100) {
+    if (new >= 100) {
         var n1 = (n / 100) % 10
         for (i in list.indices) {
             n1 += 10
@@ -321,7 +321,7 @@ fun roman(n: Int): String {
         }
         new -= n1 * 100
     }
-    if (new > 10) {
+    if (new >= 10) {
         var n3 = (n / 10) % 10
         for (i in list.indices) {
             n3 += 20
