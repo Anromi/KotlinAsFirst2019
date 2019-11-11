@@ -146,18 +146,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * В выходном списке не должно быть повторяюихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    val list = mutableListOf<String>()
-    for (element in a) {
-        for (element1 in b) {
-            if (element == element1) {
-                list.add(element)
-                break
-            }
-        }
-    }
-    return list
-}
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.toSet().intersect(b.toSet()).toList()
 
 /**
  * Средняя
@@ -176,7 +165,25 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val map = mutableMapOf<String, String>()
+    for (item in listOf(mapA, mapB)) {
+        for ((key, value) in item) {
+            if (key in mapA) {
+                if (mapA[key] != value) {
+                    map[key] = mapA.getOrDefault(key, value) + ", " + value
+                }
+                else {
+                    map[key] = mapA.getOrDefault(key, value)
+                }
+            }
+            else {
+                map[key] = mapA.getOrDefault(key, value)
+            }
+        }
+    }
+    return map
+}
 
 /**
  * Средняя
