@@ -202,7 +202,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
     for ((first, second) in stockPrices) {
         val item = map[first]
         if (item == null) map[first] = mutableListOf(second)
-        else item.add(second)  //я получаю map с названием и список цен, пример: {MSFT=[100.0, 200.0], NFLX=[40.0]}
+        else item.add(second)
     }
     for ((key1, value1) in map) {
         average = value1.sum()
