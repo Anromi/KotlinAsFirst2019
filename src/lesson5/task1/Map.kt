@@ -195,7 +195,22 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+    var average: Double
+    val resMap = mutableMapOf<String, Double>()
+    val map = mutableMapOf<String, MutableList<Double>>()
+    for ((first, second) in stockPrices) {
+        val item = map[first]
+        if (item == null) map[first] = mutableListOf(second)
+        else item.add(second)  //я получаю map с названием и список цен, пример: {MSFT=[100.0, 200.0], NFLX=[40.0]}
+    }
+    for ((key1, value1) in map) {
+        average = value1.sum()
+        val item = resMap[key1]
+        if (item == null) resMap[key1] = average/(value1.size)
+    }
+    return resMap
+}
 
 /**
  * Средняя
