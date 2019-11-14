@@ -172,12 +172,10 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
             if (key in mapA) {
                 if (mapA[key] != value) {
                     map[key] = mapA.getOrDefault(key, value) + ", " + value
-                }
-                else {
+                } else {
                     map[key] = mapA.getOrDefault(key, value)
                 }
-            }
-            else {
+            } else {
                 map[key] = mapA.getOrDefault(key, value)
             }
         }
@@ -247,11 +245,12 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    if (chars.isEmpty()) return false
+    var sum = 0
     for (i in chars) {
-        if (!word.contains(i)) return false
+        if (word.count { it == i } > 0) sum++
+        if (sum == chars.size) return true
     }
-    return true
+    return false
 }
 
 /**
@@ -266,7 +265,13 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    val map = mutableMapOf<String, Int>()
+    for (i in list) {
+        if ((list.count { it == i }) > 1) map[i] = list.count { it == i }
+    }
+    return map
+}
 
 /**
  * Средняя
