@@ -246,7 +246,14 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    var sum = 0
+    for (i in chars) {
+        if (word.count { it == i } > 0) sum ++
+        if (sum == chars.size) return true
+    }
+    return false
+}
 
 /**
  * Средняя
