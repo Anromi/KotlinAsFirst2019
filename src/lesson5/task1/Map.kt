@@ -247,12 +247,11 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
-    var sum = 0
+    if (chars.isEmpty()) return false
     for (i in chars) {
-        if (word.count { it == i } > 0) sum ++
-        if (sum == chars.size) return true
+        if (!word.contains(i)) return false
     }
-    return false
+    return true
 }
 
 /**
