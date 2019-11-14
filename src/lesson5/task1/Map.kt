@@ -247,7 +247,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     val charsSet = chars.toSet()
     for (i in word.toSet()) {
-        if (!charsSet.contains(i)) return false
+        if (!charsSet.contains(i.toLowerCase())) return false
     }
     return true
 }
