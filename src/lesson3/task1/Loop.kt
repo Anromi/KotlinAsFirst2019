@@ -320,20 +320,13 @@ fun hasDifferentDigits(n: Int): Boolean {
  */
 fun squareSequenceDigit(n: Int): Int {
     var a = 1
-    var b = 1
     var c = 2
+    if (n == 1) return a
     while (n > a) {
-        b = sqr(c)
-        a += digitNumber(b)
+        a += digitNumber(sqr(c))
         c++
     }
-    return if (a != n) {
-        while (a != n) {
-            b /= 10
-            a--
-        }
-        b % 10
-    } else b % 10
+    return (sqr(c - 1) / 10.0.pow(a - n) % 10).toInt()
 }
 
 /**
