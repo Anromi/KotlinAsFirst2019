@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import ru.spbstu.wheels.sorted
+
 /**
  * Пример
  *
@@ -334,12 +336,9 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    var last = list.lastIndex
     for (i in list.indices) {
-        while (last != 0) {
-            println(list[list.lastIndex])
-            if (list[i] + list[list.lastIndex] == number) return Pair(i, last)
-            last--
+        for (j in list.indices) {
+            if (list[i] + list[j] == number && i != j) return Pair(i, j).sorted()
         }
     }
     return Pair(-1, -1)
