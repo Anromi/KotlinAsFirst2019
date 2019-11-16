@@ -204,8 +204,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
         else item.add(second)
     }
     for ((key1, value1) in map) {
-        val item = resMap[key1]
-        if (item == null) resMap[key1] = value1.sum() / (value1.size)
+        resMap[key1] = value1.sum() / (value1.size)
     }
     return resMap
 }
@@ -268,7 +267,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
     val map = mutableMapOf<String, Int>()
-    for (i in list) {
+    for (i in list.toSet()) {
         if ((list.count { it == i }) > 1) map[i] = list.count { it == i }
     }
     return map
