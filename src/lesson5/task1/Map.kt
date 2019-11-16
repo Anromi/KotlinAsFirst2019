@@ -375,6 +375,11 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<Strin
             capacity1 += pair.first
         }
         for ((name1, pair1) in treasures) {
+            if (pair1.first <= capacity && pair1.second > pair.second) {
+                capacity1 -= pair.first
+                set.remove(name)
+                set.add(name1)
+            }
             if (pair1.first == pair.first && pair1.second > pair.second) {
                 if (capacity1 + pair1.first <= capacity)
                 set.add(name1)
