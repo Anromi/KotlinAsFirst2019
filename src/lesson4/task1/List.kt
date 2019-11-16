@@ -166,13 +166,13 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
  */
 fun polynom(p: List<Int>, x: Int): Int {
     var ax = 1
-    val result = mutableListOf<Int>()
+    var result = 0
     if (p.isEmpty() || p.size == 1) return p.sum()
     for (i in p) {
-        result.add(i * ax)
+        result += i * ax
         ax *= x
     }
-    return result.sum()
+    return result
 }
 
 /**
