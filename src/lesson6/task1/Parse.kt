@@ -78,9 +78,9 @@ fun dateStrToDigit(str: String): String {
     )
     val parts = str.split(" ")
     if (parts.size != 3) return ""
-    val number = parts[0].toInt()
+    val number = parts[0].toIntOrNull() ?: return ""
     val month = parts[1]
-    val year = parts[2].toInt()
+    val year = parts[2].toIntOrNull() ?: return ""
     if (month !in months || daysInMonth(months.indexOf(parts[1]) + 1, year) < number) return ""
     return String.format("%02d.%02d.%d", number, months.indexOf(parts[1]) + 1, year)
 }
