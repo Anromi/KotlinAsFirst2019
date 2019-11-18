@@ -128,7 +128,7 @@ fun speak(phone: String) =
             ")" -> ""
             "-" -> ""
             " " -> ""
-            else -> it.value // ""
+            else -> it.value
         }
     }
 fun flattenPhoneNumber(phone: String): String {
