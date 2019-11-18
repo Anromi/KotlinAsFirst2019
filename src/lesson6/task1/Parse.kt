@@ -3,7 +3,6 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
-import lesson8.task1.pathBetweenHexes
 
 val months = listOf<String>(
     "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
@@ -122,7 +121,20 @@ fun dateDigitToStr(digital: String): String {
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun speak(phone: String) =
+    phone.replace(Regex("[ ()-]")) {
+        when (it.value) {
+            "(" -> ""
+            ")" -> ""
+            "-" -> ""
+            " " -> ""
+            else -> it.value // ""
+        }
+    }
+fun flattenPhoneNumber(phone: String): String {
+    if (!phone.matches(Regex("""\+?\d+\s*(\(\d+\s*-*\s*\d*\))?(\d*-*\s*)*"""))) return ""
+    return speak(phone)
+}
 
 /**
  * Средняя
