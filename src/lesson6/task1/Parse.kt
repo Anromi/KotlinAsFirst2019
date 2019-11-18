@@ -3,6 +3,11 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import lesson8.task1.pathBetweenHexes
+
+val months = listOf<String>(
+    "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
+    "сентября", "октября", "ноября", "декабря")
 
 /**
  * Пример
@@ -72,10 +77,6 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    val months = listOf<String>(
-        "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
-        "сентября", "октября", "ноября", "декабря"
-    )
     val parts = str.split(" ")
     if (parts.size != 3) return ""
     val number = parts[0].toIntOrNull() ?: return ""
@@ -95,7 +96,17 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val parts = digital.split(".")
+    if (parts.size != 3) return ""
+    val day = parts[0].toIntOrNull() ?: return ""
+    val month = parts[1].toInt()
+    if (month !in 1..12) return ""
+    val year = parts[2].toIntOrNull() ?: return ""
+    val month1 = months[month - 1]
+    if (daysInMonth(month, year) < day) return ""
+    return String.format("%d %s %d", day, month1, year)
+}
 
 /**
  * Средняя
