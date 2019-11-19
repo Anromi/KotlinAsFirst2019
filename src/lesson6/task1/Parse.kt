@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import lesson8.task1.pathBetweenHexes
 
 val months = listOf<String>(
     "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
@@ -190,7 +191,16 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+        val parts = expression.split(" ")
+        var sum = parts[0].toInt()
+        require(expression.matches(Regex("""\d*(\d+\s\+?[-]?\s\d*)*""")) && expression.isNotEmpty()) // кидает IllegalArgumentException()
+        for ((i1, i2) in parts.withIndex()) {
+            if (i2 == "+") sum += parts[i1 + 1].toInt()
+            if (i2 == "-") sum -= parts[i1 + 1].toInt()
+        }
+        return sum
+}
 
 /**
  * Сложная
