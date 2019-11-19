@@ -196,6 +196,7 @@ fun plusMinus(expression: String): Int {
         var sum = parts[0].toInt()
         require(expression.matches(Regex("""\d*(\d+\s\+?[-]?\s\d*)*""")) && expression.isNotEmpty()) // кидает IllegalArgumentException()
         for ((i1, i2) in parts.withIndex()) {
+            require(i2 != "")
             if (i2 == "+") sum += parts[i1 + 1].toInt()
             if (i2 == "-") sum -= parts[i1 + 1].toInt()
         }
