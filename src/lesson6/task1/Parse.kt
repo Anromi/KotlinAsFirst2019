@@ -201,11 +201,7 @@ fun plusMinus(expression: String): Int {
             if (i2 == "-") sum -= parts[i1 + 1].toInt()
         }
         return sum
-    }
-    catch (e: IllegalArgumentException) {
-        throw e
-    }
-    catch (e: NumberFormatException) {
+    } catch (e: NumberFormatException) {
         throw e
     }
 }
