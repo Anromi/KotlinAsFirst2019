@@ -155,7 +155,6 @@ fun speakJump(jumps: String) =
         }
     }
 fun bestLongJump(jumps: String): Int {
-    //if (!jumps.matches(Regex("""(\d+?)*\s[%]*?\s(\d*-*\s*)*"""))) return -1
     if (!jumps.contains(Regex("""\d"""))) return -1
     for (i in jumps) {
         if (i != '-' && i != '%' && i != ' ' && i !in '0'..'9') return -1
