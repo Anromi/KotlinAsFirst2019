@@ -192,18 +192,15 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    try {
-        val parts = expression.split(" ")
-        var sum = parts[0].toInt()
-        require(expression.matches(Regex("""\d*(\d+\s\+?[-]?\s\d*)*""")) && expression.isNotEmpty()) // кидает IllegalArgumentException()
-        for ((i1, i2) in parts.withIndex()) {
-            if (i2 == "+") sum += parts[i1 + 1].toInt()
-            if (i2 == "-") sum -= parts[i1 + 1].toInt()
-        }
-        return sum
-    } catch (e: NumberFormatException) {
-        throw e
+    val parts = expression.split(" ")
+    var sum = parts[0].toInt()
+    require(parts[0] == "")
+    require(expression.matches(Regex("""\d*(\d+\s\+?[-]?\s\d*)*""")) && expression.isNotEmpty()) // кидает IllegalArgumentException()
+    for ((i1, i2) in parts.withIndex()) {
+        if (i2 == "+") sum += parts[i1 + 1].toInt()
+        if (i2 == "-") sum -= parts[i1 + 1].toInt()
     }
+    return sum
 }
 
 /**
