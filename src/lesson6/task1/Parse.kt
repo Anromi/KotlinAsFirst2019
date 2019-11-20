@@ -195,7 +195,9 @@ fun bestHighJump(jumps: String): Int = TODO()
 fun plusMinus(expression: String): Int {
     val parts = expression.split(" ")
     var sum = parts[0].toInt()
-    require(expression == "")
+    val e = IllegalArgumentException()
+    if (expression == "")
+        throw e
     require(expression.matches(Regex("""\d*(\d+\s\+?[-]?\s\d*)*""")) && expression.isNotEmpty()) // кидает IllegalArgumentException()
     for ((i1, i2) in parts.withIndex()) {
         if (i2 == "+") sum += parts[i1 + 1].toInt()

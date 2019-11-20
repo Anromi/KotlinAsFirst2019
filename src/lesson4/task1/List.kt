@@ -256,7 +256,7 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = digits.indices.fold(0) {res, i -> res * base + digits[i]}
+fun decimal(digits: List<Int>, base: Int): Int = digits.indices.fold(0) { res, i -> res * base + digits[i] }
 
 /**
  * Сложная

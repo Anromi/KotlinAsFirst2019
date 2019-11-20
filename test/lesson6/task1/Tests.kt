@@ -89,7 +89,6 @@ class Tests {
     @Test
     @Tag("Hard")
     fun plusMinus() {
-        assertThrows(NumberFormatException::class.java) { plusMinus("") }
         assertEquals(0, plusMinus("0"))
         assertEquals(4, plusMinus("2 + 2"))
         assertEquals(6, plusMinus("2 + 31 - 40 + 13"))
