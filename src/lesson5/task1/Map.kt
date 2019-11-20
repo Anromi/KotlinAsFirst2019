@@ -287,8 +287,7 @@ fun hasAnagrams(words: List<String>): Boolean {
     for (i in words) {
         set.add(i.toList().sorted().toString())
     }
-    if (words.size == set.size) return false
-    return true
+    return words.size != set.size
 }
 
 /**
@@ -335,9 +334,11 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    var a = 1
     for (i in list.indices) {
-        for (j in list.indices) {
-            if (list[i] + list[j] == number && i != j) return Pair(i, j).sorted()
+        while (a != list.size) {
+            if (list[i] + list[a] == number && i != a) return Pair(i, a).sorted()
+            a++
         }
     }
     return Pair(-1, -1)
