@@ -4,6 +4,7 @@ package lesson6.task1
 
 import lesson2.task2.daysInMonth
 import lesson8.task1.pathBetweenHexes
+import java.lang.IndexOutOfBoundsException
 
 val months = listOf<String>(
     "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",
@@ -192,14 +193,18 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    val parts = expression.split(" ")
-    var sum = parts[0].toInt()
-    require(expression.matches(Regex("""\d*(\d+\s\+?[-]?\s\d*)*""")) && expression.isNotEmpty()) // кидает IllegalArgumentException()
-    for ((i1, i2) in parts.withIndex()) {
-        if (i2 == "+") sum += parts[i1 + 1].toInt()
-        if (i2 == "-") sum -= parts[i1 + 1].toInt()
+    try {
+        val parts = expression.split(" ")
+        var sum = parts[0].toInt()
+        require(expression.matches(Regex("""\d*(\d+\s\+?[-]?\s\d*)*""")) && expression.isNotEmpty()) // кидает IllegalArgumentException()
+        for ((i1, i2) in parts.withIndex()) {
+            if (i2 == "+") sum += parts[i1 + 1].toInt()
+            if (i2 == "-") sum -= parts[i1 + 1].toInt()
+        }
+        return sum
+    } catch (e: IllegalAccessError) {
+        throw e
     }
-    return sum
 }
 
 /**
@@ -215,16 +220,16 @@ fun firstDuplicateIndex(str: String): Int {
     val parts = str.split(" ")
     if (parts.size < 2) return -1
     var num = 0
-    var flag = false
+    var flag = 1
     for (i in 0..parts.size) {
         if (parts[i].toLowerCase() == parts[i + 1].toLowerCase()) {
-            flag = true
+            flag = 0
             break
         }
         num += parts[i].length + 1
     }
-    if (flag) return num
-    else return -1
+    return if (flag == 0) num
+    else -1
 }
 
 /**
