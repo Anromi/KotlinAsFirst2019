@@ -167,7 +167,6 @@ fun times(a: List<Int>, b: List<Int>): Int = TODO()
 fun polynom(p: List<Int>, x: Int): Int {
     var ax = 1
     var result = 0
-    if (p.isEmpty() || p.size == 1) return p.sum()
     for (i in p) {
         result += i * ax
         ax *= x
@@ -203,12 +202,10 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
  */
 fun factorize(n: Int): List<Int> {
     var x = n
-    var a = 2
     val l = mutableListOf<Int>()
-    while (x >= a) {
-        a = minDivisor(x)
-        x /= a
-        l.add(a)
+    while (x >= 2) {
+        l.add(minDivisor(x))
+        x /= minDivisor(x)
     }
     return l
 }
@@ -259,15 +256,7 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int {
-    var a = digits.size - 1
-    var b = 0
-    for (element in digits) {
-        b += element * base.toDouble().pow(a).toInt()
-        a--
-    }
-    return b
-}
+fun decimal(digits: List<Int>, base: Int): Int = digits.indices.fold(0) {res, i -> res * base + digits[i]}
 
 /**
  * Сложная
