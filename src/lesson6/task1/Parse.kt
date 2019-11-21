@@ -238,8 +238,8 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String {
     val listNamePrice = description.split("; ")
-    var maxPrice = 0.0
-    var maxName = "name"
+    var maxPrice = -1.0
+    var maxName = ""
     for (element in listNamePrice) {
         val listElement = element.split(" ")
         if (listElement.size != 2) return ""
