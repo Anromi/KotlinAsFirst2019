@@ -243,10 +243,10 @@ fun mostExpensive(description: String): String {
     for (element in listNamePrice) {
         val listElement = element.split(" ")
         if (listElement.size != 2) return ""
-        if (listElement[1].toDouble()> maxPrice) {
+        if (listElement[1].toDouble() > maxPrice) {
             maxName = listElement[0]
+            maxPrice = listElement[1].toDouble()
         }
-        maxPrice = listElement[1].toDouble()
     }
     return maxName
 }
