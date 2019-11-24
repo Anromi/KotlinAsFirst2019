@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+import lesson2.task1.whichRookThreatens
 import java.io.File
 
 /**
@@ -81,8 +82,36 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
  *
  */
+fun a(word: String) =
+    word.replace(Regex("[ыяюЫЯЮ]")) {
+        when (it.value) {
+            "ы" -> "и"
+            "я" -> "а"
+            "ю" -> "у"
+            "Ы" -> "И"
+            "Я" -> "А"
+            "Ю" -> "У"
+            else -> it.value
+        }
+    }
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    val set = setOf('ж', 'ч', 'ш', 'щ', 'Ж', 'Ч', 'Ш', 'Щ')
+    val xz = setOf("жЮри", "броШЮра", "параШют")
+    var res = ""
+    for (word in File(inputName).readText().split(" ")) { // прохожусь по каждому слову
+        var newWord = ""
+        if (word !in xz && word.isNotEmpty()) {
+            for (i in word.indices) {
+                if (i > 0 && word[i - 1] in set) { // если lower
+                    newWord += a(word[i].toString())
+                } else newWord += word[i]
+            }
+        }
+        res += ("$newWord ")
+    }
+    writer.write(res.removeSuffix(" ")) // убираю пробел в конце
+    writer.close()
 }
 
 /**
