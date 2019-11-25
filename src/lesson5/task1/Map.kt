@@ -319,11 +319,11 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
     var set = mutableSetOf<String>()
     for ((name, setName) in friends) {
         set.addAll(setName)
-        for (name1 in set) {
+        for (name1 in setName) {
             if (friends[name1] == null) res[name1] = mutableSetOf()
             else friends[name1]?.let { set.addAll(it) } // set.addAll(friends[name1])
-            set.remove(name)
         }
+        set.remove(name)
         res[name] = set
         set = mutableSetOf()
     }
