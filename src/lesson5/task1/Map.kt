@@ -324,8 +324,10 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
             else {
                 friends[name1]?.let { set.addAll(it) } // set.addAll(friends[name1])
                 for ((one, all) in friends) {
-                    if (one !in res) {
-                        set.addAll(all)
+                    for (a in all) {
+                        if (one !in res && a != all.last()) {
+                            set.addAll(all)
+                        }
                     }
                 }
             }
