@@ -314,31 +314,7 @@ fun hasAnagrams(words: List<String>): Boolean {
  *          "Mikhail" to setOf("Sveta", "Marat")
  *        )
  */
-fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> {
-    val res = mutableMapOf<String, Set<String>>()
-    var set = mutableSetOf<String>()
-    for ((name, setName) in friends) {
-        set.addAll(setName)
-        for (name1 in setName) {
-            if (friends[name1] == null) res[name1] = mutableSetOf()
-            else {
-                friends[name1]?.let { set.addAll(it) } // set.addAll(friends[name1])
-                for ((_, all) in friends) {
-                    for (a in all) {
-                        if (name in all) { //(one !in res && a != all.last() && name in all)
-                            set.addAll(all)
-                        }
-                    }
-                }
-            }
-        }
-        set.remove(name)
-        res[name] = set
-        set = mutableSetOf()
-    }
-    return res
-}
-
+fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
 
 /**
  * Сложная
@@ -390,4 +366,26 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+    val set = mutableSetOf<String>()
+    var num = 0
+    var capacity1 = 0
+    for ((name, pair) in treasures) {
+        if (pair.second >= num && capacity1 + pair.first <= capacity) {
+            set.add(name)
+            num = pair.second
+            capacity1 += pair.first
+        }
+        for ((name1, pair1) in treasures) {
+            if (pair1.first == pair.first && pair1.second > pair.second) {
+                if (capacity1 + pair1.first <= capacity)
+                    set.add(name1)
+                else {
+                    set.remove(name)
+                    set.add(name1)
+                }
+            }
+        }
+    }
+    return set
+}
