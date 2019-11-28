@@ -4,6 +4,7 @@ package lesson7.task1
 
 import lesson2.task1.whichRookThreatens
 import java.io.File
+import kotlin.math.max
 
 /**
  * Пример
@@ -132,7 +133,15 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var maxLine = 0
+    for (line0 in File(inputName).readLines()) {
+        if (maxLine < line0.trim().length) maxLine = line0.trim().length
+    }
+    for (line1 in File(inputName).readLines()) {
+        writer.write(" ".repeat((maxLine - line1.trim().length) / 2) + line1.trim() + "\n")
+    }
+    writer.close()
 }
 
 /**
