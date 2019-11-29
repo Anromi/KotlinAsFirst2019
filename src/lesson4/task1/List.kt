@@ -208,7 +208,7 @@ fun factorize(n: Int): List<Int> {
         if (x % del == 0) {
             l.add(del)
             x /= del
-            del = 1
+            del--
         }
         del++
     }
