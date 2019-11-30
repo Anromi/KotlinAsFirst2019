@@ -267,10 +267,8 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
     val map = mutableMapOf<String, Int>()
-    for (i in list.toSet()) {
-        if ((list.toSet().count { it == i }) > 1) map[i] = list.count { it == i }
-    }
-    return map
+    for (i in list) map[i] = map.getOrDefault(i, 0) + 1
+    return map.filter { it.value > 1 }
 }
 
 /**
@@ -325,7 +323,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
                 if (n == name) continue
                 mut1.add(n)
                 if (friends[n] == null) map[n] = mutableSetOf()
-                else friends[n]?.let { mut.addAll(it) }
+                else friends[n]?.let { mut1.addAll(it) }
             }
             mut.removeAll(mut1)
         }
