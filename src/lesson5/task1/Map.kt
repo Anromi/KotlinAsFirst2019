@@ -331,27 +331,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
     }
     return map
 }
-    /*
-    val map = mutableMapOf<String, Set<String>>()
-    for ((name, names) in friends) {
-        val mut = mutableSetOf<String>()
-        mut.addAll(names)
-        val mut1 = mutableSetOf(name)
-        while (mut.isNotEmpty()) {   // пока массив не пустой
-            for (n in mut) {
-                if (n in mut1) continue
-                mut1.add(n)
-                if (n in friends) mut.addAll(friends[n]!!)
-                else map[n] = setOf()
-            }
-            mut.removeAll(mut1)
-        }
-        mut1.remove(name)
-        map[name] = mut1.toSet()
-    }
-    return map
-}
-*/
+
 /**
  * Сложная
  *
