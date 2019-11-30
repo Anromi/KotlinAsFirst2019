@@ -238,8 +238,33 @@ fun top20Words(inputName: String): Map<String, Int> {
  *
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
+fun a1(word: String) =
+    word.replace(Regex("[МЗзрдйми!]")) {
+        when (it.value) {
+            "З" -> "Zz"
+            "з" -> "zz"
+            "р" -> "r"
+            "д" -> "d"
+            "й" -> "y"
+            "м" -> "m"
+            "М" -> "m"
+            "и" -> "yy"
+            "!" -> "!!!"
+            else -> it.value
+        }
+    }
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var res = ""
+    for (word in File(inputName).readText().split(" ")) { // прохожусь по каждому слову
+        var newWord = ""
+            for (i in word.indices) {
+                newWord += a1(word[i].toString())
+            }
+        res += ("$newWord ")
+    }
+    writer.write(res.removeSuffix(" ")) // убираю пробел в конце
+    writer.close()
 }
 
 /**
