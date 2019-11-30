@@ -315,30 +315,43 @@ fun hasAnagrams(words: List<String>): Boolean {
  *        )
  */
 fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> {
+    val map = mutableMapOf<String, MutableSet<String>>()
+    var mut = mutableSetOf<String>()
+    for ((name, names) in friends) {
+        mut.addAll(names)
+        val mut1 = mutableSetOf<String>()
+        for (n in names) {
+            if (friends[n] == null) map[n] = mutableSetOf()
+            else friends[n]?.let { mut1.addAll(it) } // mut.addAll(friends[n])
+        }
+        mut.addAll(mut1)
+        mut.remove(name)
+        map[name] = mut
+        mut = mutableSetOf()
+    }
+    return map
+}
+    /*
     val map = mutableMapOf<String, Set<String>>()
     for ((name, names) in friends) {
         val mut = mutableSetOf<String>()
         mut.addAll(names)
-        val mut12 = mutableMapOf<String, Set<String>>()
-        while (mut.isNotEmpty()) {
-            mut12[name] = names
+        val mut1 = mutableSetOf(name)
+        while (mut.isNotEmpty()) {   // пока массив не пустой
             for (n in mut) {
-                if (n in mut12.keys) continue
-                mut12[n] = mutableSetOf()
-                if (friends[n] == null) map[n] = mutableSetOf()
-                else friends[n]?.let { mut.addAll(it) }
+                if (n in mut1) continue
+                mut1.add(n)
+                if (n in friends) mut.addAll(friends[n]!!)
+                else map[n] = setOf()
             }
-            for ((key, value) in mut12) {
-                mut.addAll(value)
-                mut.removeAll(listOf(key))
-            }
+            mut.removeAll(mut1)
         }
-        mut12.keys.removeAll(listOf(name))
-        map[name] = mut12.keys
+        mut1.remove(name)
+        map[name] = mut1.toSet()
     }
     return map
 }
-
+*/
 /**
  * Сложная
  *
