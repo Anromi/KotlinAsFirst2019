@@ -172,7 +172,40 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    var maxLine = 0
+    for (line0 in File(inputName).readLines()) {
+        if (maxLine < line0.trim().length) maxLine = line0.trim().length
+    }
+    for (line1 in File(inputName).readLines()) {
+        val lineSpace = line1.trim()
+        val listLin1 = lineSpace.split(" ")
+        if (" ".repeat(lineSpace.length) == lineSpace || lineSpace == "") {
+            writer.newLine()
+            continue
+        }
+        if (listLin1.size == 1) {
+            println(listLin1[0])
+            writer.write(listLin1[0])
+            writer.newLine()
+            continue
+        }
+        val length = listLin1.sumBy { it.length } // сумма всех элементов
+        val kol = (maxLine - length) / (listLin1.size - 1) // количество пробелов меж
+        val ma = (listLin1.size - 1) * (kol + 1) + length - maxLine
+        for (ind in listLin1.indices) {
+            writer.write(listLin1[ind])
+            if (ind != listLin1.lastIndex) {
+                if (listLin1.size - ma > ind + 1) {
+                    writer.write(" ".repeat(kol + 1))
+                } else {
+                    writer.write(" ".repeat(kol))
+                }
+            }
+        }
+        writer.newLine()
+    }
+    writer.close()
 }
 
 /**
