@@ -189,8 +189,8 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             writer.newLine()
             continue
         }
-        val length = listLin1.sumBy { it.length } // сумма всех элементов
-        val kol = (maxLine - length) / (listLin1.size - 1) // количество пробелов меж
+        val length = listLin1.sumBy { it.length }
+        val kol = (maxLine - length) / (listLin1.size - 1)
         val ma = (listLin1.size - 1) * (kol + 1) + length - maxLine
         for (ind in listLin1.indices) {
             writer.write(listLin1[ind])
