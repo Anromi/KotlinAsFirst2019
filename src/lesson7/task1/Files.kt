@@ -203,7 +203,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             }
         }
         writer.newLine()
-    }
+    } 
     writer.close()
 }
 
