@@ -185,7 +185,6 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             continue
         }
         if (listLin1.size == 1) {
-            println(listLin1[0])
             writer.write(listLin1[0])
             writer.newLine()
             continue
@@ -196,7 +195,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         for (ind in listLin1.indices) {
             writer.write(listLin1[ind])
             if (ind != listLin1.lastIndex) {
-                if (listLin1.size - ma > ind + 1) {
+                if (listLin1.lastIndex - ind > ma) {
                     writer.write(" ".repeat(kol + 1))
                 } else {
                     writer.write(" ".repeat(kol))
