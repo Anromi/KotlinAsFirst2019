@@ -190,20 +190,22 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             continue
         }
         val length = listLin1.sumBy { it.length }
-        val kol = (maxLine - length) / (listLin1.size - 1)
-        val ma = (listLin1.size - 1) * (kol + 1) + length - maxLine
+        val kolich = listLin1.size
+        val kol = (maxLine - length) / (kolich - 1) // получаю количество пробелов цел
+        var kolNcek = (maxLine - length) % (kolich - 1) // не цел
         for (ind in listLin1.indices) {
             writer.write(listLin1[ind])
             if (ind != listLin1.lastIndex) {
-                if (listLin1.size - ma > ind + 1) {
+                if (kolNcek > 0) {
                     writer.write(" ".repeat(kol + 1))
+                    kolNcek--
                 } else {
                     writer.write(" ".repeat(kol))
                 }
             }
         }
         writer.newLine()
-    } 
+    }
     writer.close()
 }
 
