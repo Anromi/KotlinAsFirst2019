@@ -83,35 +83,34 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
  *
  */
-fun a(word: String) =
-    word.replace(Regex("[ыяюЫЯЮ]")) {
+fun replacement(word: String) =
+    word.replace(Regex("[ыяю]")) {
         when (it.value) {
             "ы" -> "и"
             "я" -> "а"
             "ю" -> "у"
-            "Ы" -> "И"
-            "Я" -> "А"
-            "Ю" -> "У"
             else -> it.value
         }
     }
 fun sibilants(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     val set = setOf('ж', 'ч', 'ш', 'щ', 'Ж', 'Ч', 'Ш', 'Щ')
-    val xz = setOf("жЮри", "броШЮра", "параШют")
     var res = ""
-    for (word in File(inputName).readText().split(" ")) { // прохожусь по каждому слову
+    for (word in File(inputName).readText().split(" ")) {
         var newWord = ""
-        if (word !in xz && word.isNotEmpty()) {
+        if (word.isNotEmpty()) {
             for (i in word.indices) {
-                if (i > 0 && word[i - 1] in set) { // если lower
-                    newWord += a(word[i].toString())
-                } else newWord += word[i]
+                if (i > 0 && word[i - 1] in set) {
+                    newWord += if (word[i] == word[i].toLowerCase()) replacement(word[i].toString())
+                    else replacement(word[i].toLowerCase().toString()).toUpperCase()
+                } else {
+                    newWord += word[i]
+                }
             }
         }
         res += ("$newWord ")
     }
-    writer.write(res.removeSuffix(" ")) // убираю пробел в конце
+    writer.write(res.removeSuffix(" "))
     writer.close()
 }
 
@@ -175,11 +174,13 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     var maxLine = 0
     for (line0 in File(inputName).readLines()) {
-        if (maxLine < line0.trim().length) maxLine = line0.trim().length
+        val listLin0 = line0.trim().replace(Regex("""\s+"""), " ")
+        if (maxLine < line0.trim().length) maxLine = listLin0.trim().length
     }
     for (line1 in File(inputName).readLines()) {
+        val listLin0 = line1.replace(Regex("""\s+"""), " ")
         val lineSpace = line1.trim()
-        val listLin1 = lineSpace.split(" ")
+        val listLin1 = listLin0.trim().split(" ")
         if (" ".repeat(lineSpace.length) == lineSpace || lineSpace == "") {
             writer.newLine()
             continue
@@ -190,17 +191,18 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             continue
         }
         val length = listLin1.sumBy { it.length }
-        val kolich = listLin1.size
-        val kol = (maxLine - length) / (kolich - 1) // получаю количество пробелов цел
-        var kolNcek = (maxLine - length) % (kolich - 1) // не цел
+        val kolich = listLin1.size - 1
+        val kol = (maxLine - length) / (kolich) // получаю количество пробелов цел
+        var kolNcek = (maxLine - length) % (kolich) // не цел
         for (ind in listLin1.indices) {
             writer.write(listLin1[ind])
             if (ind != listLin1.lastIndex) {
                 if (kolNcek > 0) {
-                    writer.write(" ".repeat(kol + 1))
+                    writer.write( " ".repeat(kol + 1))
                     kolNcek--
                 } else {
-                    writer.write(" ".repeat(kol))
+                    writer.write(" ".repeat(kol ))
+                    kolNcek--
                 }
             }
         }
@@ -276,10 +278,14 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
     val writer = File(outputName).bufferedWriter()
     for (word in File(inputName).readText()) {
         val newWord =
-            dictionary.getOrDefault(word.toUpperCase(),
-                dictionary.getOrDefault(word.toLowerCase(), word.toString())).toLowerCase()
-        writer.write(if (word.isUpperCase()) newWord.capitalize()
-        else newWord)
+            dictionary.getOrDefault(
+                word.toUpperCase(),
+                dictionary.getOrDefault(word.toLowerCase(), word.toString())
+            ).toLowerCase()
+        writer.write(
+            if (word.isUpperCase()) newWord.capitalize()
+            else newWord
+        )
     }
     writer.close()
 }
@@ -315,10 +321,12 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     for (word in File(inputName).readLines()) {
         val word1 = word.toLowerCase()
         if (word1.length == word1.toSet().size && word1.length > max) {
-                max = word1.length
-                list.clear()
-                list.add(word)
-            } else if (word1.length == word1.toSet().size && word1.length == max) list.add(word)
+            max = word1.length
+            list.clear()
+            list.add(word)
+        } else {
+            if (word1.length == word1.toSet().size && word1.length == max) list.add(word)
+        }
     }
     File(outputName).writeText(list.joinToString(separator = ", "))
     writer.close()

@@ -123,19 +123,10 @@ fun dateDigitToStr(digital: String): String {
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun speak(phone: String) =
-    phone.replace(Regex("[ ()-]")) {
-        when (it.value) {
-            "(" -> ""
-            ")" -> ""
-            "-" -> ""
-            " " -> ""
-            else -> it.value
-        }
-    }
 fun flattenPhoneNumber(phone: String): String {
+    val phoneNew = Regex("""[\s()-]""").replace(phone,"")
     if (!phone.matches(Regex("""\+?\d+\s*(\(\d+\s*-*\s*\d*\))?(\d*-*\s*)*"""))) return ""
-    return speak(phone)
+    return phoneNew
 }
 
 /**
@@ -148,26 +139,14 @@ fun flattenPhoneNumber(phone: String): String {
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun speakJump(jumps: String) =
-    jumps.replace(Regex("[%-]")) {
-        when (it.value) {
-            "%" -> ""
-            "-" -> ""
-            else -> it.value
-        }
-    }
 fun bestLongJump(jumps: String): Int {
     if (!jumps.contains(Regex("""\d"""))) return -1
     for (i in jumps) {
         if (i != '-' && i != '%' && i != ' ' && i !in '0'..'9') return -1
     }
-    val sJ = speakJump(jumps)
-    val parts = sJ.split(" ").toSet()
-    var max = 0
-    for (i in parts) {
-        if (i != "" && i.toInt() > max) max = i.toInt()
-    }
-    return max
+    val sJ = Regex("""[%-]""").replace(jumps, "")
+    val parts = sJ.split(" ").toSet().max()
+    return parts!!.toInt()
 }
 
 /**
@@ -206,7 +185,7 @@ fun plusMinus(expression: String): Int = TODO()
 fun firstDuplicateIndex(str: String): Int {
     val parts = str.toLowerCase().split(" ")
     var num = 0
-    for (i in 0..parts.lastIndex - 1) {
+    for (i in 0 until parts.lastIndex) {
         if (parts[i] == parts[i + 1]) return num
         num += parts[i].length + 1
     }
