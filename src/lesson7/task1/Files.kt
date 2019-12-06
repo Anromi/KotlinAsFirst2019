@@ -383,10 +383,10 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     res.write("<html>\n<body>\n<p>\n")
     val lineNEW = File(inputName).readLines()
     var notEmtu = 0
-    for (line in lineNEW) {
-        var lineNew = line
-        if (line.isNotEmpty()) notEmtu++
-        if (line.isEmpty() && notEmtu != 0) {
+    for (line in lineNEW.indices) {
+        var lineNew = lineNEW[line]
+        if (lineNEW[line].isNotEmpty()) notEmtu++
+        if (lineNEW[line].isEmpty() && notEmtu != 0 && lineNEW.lastIndex != line) {
             lineNew = "\n</p>\n<p>"
             notEmtu = 0
         }
