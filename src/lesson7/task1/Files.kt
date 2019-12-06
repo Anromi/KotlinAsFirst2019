@@ -386,7 +386,10 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     for (line in lineNEW) {
         var lineNew = line
         if (line.isNotEmpty()) notEmtu++
-        if (line.isEmpty() && notEmtu != 0) lineNew = "\n</p>\n<p>"
+        if (line.isEmpty() && notEmtu != 0) {
+            lineNew = "\n</p>\n<p>"
+            notEmtu = 0
+        }
         for (word in lineNew.split(" ")) {
             var length = word.length
             var newWord = word
