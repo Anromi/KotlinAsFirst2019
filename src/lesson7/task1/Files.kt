@@ -381,9 +381,12 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val res = File(outputName).bufferedWriter()
     val listBIS = mutableListOf<String>()
     res.write("<html>\n<body>\n<p>\n")
-    for (line in File(inputName).readLines()) {
-        var lineNew = line
-        if (line.isEmpty()) lineNew = "\n</p>\n<p>"
+    val lineNEW = File(inputName).readLines()
+    for (line in lineNEW.indices) {
+        var lineNew = lineNEW[line]
+        if (line != lineNEW.lastIndex) {
+            if (lineNEW[line + 1].isNotEmpty() && line != 0) lineNew = "\n</p>\n<p>"
+        }
         for (word in lineNew.split(" ")) {
             var length = word.length
             var newWord = word
