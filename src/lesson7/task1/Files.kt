@@ -198,10 +198,10 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             writer.write(listLin1[ind])
             if (ind != listLin1.lastIndex) {
                 if (kolNcek > 0) {
-                    writer.write( " ".repeat(kol + 1))
+                    writer.write(" ".repeat(kol + 1))
                     kolNcek--
                 } else {
-                    writer.write(" ".repeat(kol ))
+                    writer.write(" ".repeat(kol))
                     kolNcek--
                 }
             }
@@ -378,7 +378,48 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    TODO()
+    val res = File(outputName).bufferedWriter()
+    val listBIS = mutableListOf<String>()
+    res.write("<html>\n<body>\n<p>\n")
+    for (line in File(inputName).readLines()) {
+        var lineNew = line
+        if (line.isEmpty()) lineNew = "\n</p>\n<p>"
+        for (word in lineNew.split(" ")) {
+            var length = word.length
+            var newWord = word
+            while (length != 0) {
+                if ("**" in newWord) {
+                    if ("**" !in listBIS) {
+                        newWord = newWord.replaceFirst("**", "<b>")
+                        listBIS.add("**")
+                    } else {
+                        newWord = newWord.replaceFirst("**", "</b>")
+                        listBIS.remove("**")
+                    }
+                } else if ("*" in newWord) {
+                    if ("*" !in listBIS) {
+                        newWord = newWord.replaceFirst("*", "<i>")
+                        listBIS.add("*")
+                    } else {
+                        newWord = newWord.replaceFirst("*", "</i>")
+                        listBIS.remove("*")
+                    }
+                } else if ("~~" in newWord) {
+                    if ("~~" !in listBIS) {
+                        newWord = newWord.replaceFirst("~~", "<s>")
+                        listBIS.add("~~")
+                    } else {
+                        newWord = newWord.replaceFirst("~~", "</s>")
+                        listBIS.remove("~~")
+                    }
+                }
+                length--
+            }
+            res.write(newWord)
+        }
+    }
+    res.write("\n</p>\n</body>\n</html>")
+    res.close()
 }
 
 /**
