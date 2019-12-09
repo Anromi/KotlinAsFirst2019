@@ -2,9 +2,7 @@
 
 package lesson7.task1
 
-import lesson2.task1.whichRookThreatens
 import java.io.File
-import kotlin.math.max
 
 /**
  * Пример
@@ -191,9 +189,9 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             continue
         }
         val length = listLin1.sumBy { it.length }
-        val kolich = listLin1.size - 1
-        val kol = (maxLine - length) / (kolich) // получаю количество пробелов цел
-        var kolNcek = (maxLine - length) % (kolich) // не цел
+        val quantity = listLin1.size - 1
+        val kol = (maxLine - length) / (quantity)
+        var kolNcek = (maxLine - length) % (quantity)
         for (ind in listLin1.indices) {
             writer.write(listLin1[ind])
             if (ind != listLin1.lastIndex) {
@@ -324,9 +322,7 @@ fun chooseLongestChaoticWord(inputName: String, outputName: String) {
             max = word1.length
             list.clear()
             list.add(word)
-        } else {
-            if (word1.length == word1.toSet().size && word1.length == max) list.add(word)
-        }
+        } else if (word1.length == word1.toSet().size && word1.length == max) list.add(word)
     }
     File(outputName).writeText(list.joinToString(separator = ", "))
     writer.close()
@@ -377,6 +373,30 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
+fun replacement(length: Int, word: String, listBIS: MutableList<String>): String {
+    var newWord1 = word
+    var length1 = length
+    val map = mapOf("**" to listOf("<b>", "</b>"), "*" to listOf("<i>", "</i>"), "~~" to listOf("<s>", "</s>"))
+    for ((key, value) in map) {
+        while (length1 != 0) {
+            if (key in newWord1) {
+                if (key !in listBIS) {
+                    newWord1 = newWord1.replaceFirst(key, value.first())
+                    listBIS.add(key)
+                    println(value.first())
+                } else {
+                    newWord1 = newWord1.replaceFirst(key, value.last())
+                    listBIS.remove(key)
+                    println(value.last())
+                }
+            }
+            length1--
+        }
+        length1 = length
+    }
+    return newWord1
+}
+
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val res = File(outputName).bufferedWriter()
     val listBIS = mutableListOf<String>()
@@ -391,37 +411,8 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
             notEmtu = 0
         }
         for (word in lineNew.split(" ")) {
-            var length = word.length
-            var newWord = word
-            while (length != 0) {
-                if ("**" in newWord) {
-                    if ("**" !in listBIS) {
-                        newWord = newWord.replaceFirst("**", "<b>")
-                        listBIS.add("**")
-                    } else {
-                        newWord = newWord.replaceFirst("**", "</b>")
-                        listBIS.remove("**")
-                    }
-                } else if ("*" in newWord) {
-                    if ("*" !in listBIS) {
-                        newWord = newWord.replaceFirst("*", "<i>")
-                        listBIS.add("*")
-                    } else {
-                        newWord = newWord.replaceFirst("*", "</i>")
-                        listBIS.remove("*")
-                    }
-                } else if ("~~" in newWord) {
-                    if ("~~" !in listBIS) {
-                        newWord = newWord.replaceFirst("~~", "<s>")
-                        listBIS.add("~~")
-                    } else {
-                        newWord = newWord.replaceFirst("~~", "</s>")
-                        listBIS.remove("~~")
-                    }
-                }
-                length--
-            }
-            res.write(newWord)
+            val length = word.length
+            res.write(replacement(length, word, listBIS))
         }
     }
     res.write("\n</p>\n</body>\n</html>")
