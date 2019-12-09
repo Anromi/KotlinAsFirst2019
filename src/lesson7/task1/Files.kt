@@ -170,15 +170,13 @@ fun centerFile(inputName: String, outputName: String) {
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    var maxLine = 0
+    val list = mutableListOf<String>()
     for (line0 in File(inputName).readLines()) {
-        val listLin0 = line0.trim().replace(Regex("""\s+"""), " ")
-        if (maxLine < line0.trim().length) maxLine = listLin0.trim().length
+        list.add(line0.trim().replace(Regex("""\s+"""), " "))
     }
-    for (line1 in File(inputName).readLines()) {
-        val listLin0 = line1.replace(Regex("""\s+"""), " ")
+    for (line1 in list) {
         val lineSpace = line1.trim()
-        val listLin1 = listLin0.trim().split(" ")
+        val listLin1 = line1.trim().split(" ")
         if (" ".repeat(lineSpace.length) == lineSpace || lineSpace == "") {
             writer.newLine()
             continue
@@ -189,6 +187,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             continue
         }
         val length = listLin1.sumBy { it.length }
+        val maxLine = (list.maxBy { it.length } ?: "").length
         val quantity = listLin1.size - 1
         val kol = (maxLine - length) / (quantity)
         var kolNcek = (maxLine - length) % (quantity)
