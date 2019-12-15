@@ -176,9 +176,8 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         list.add(line0.trim().replace(Regex("""\s+"""), " "))
     }
     for (line1 in list) {
-        val lineSpace = line1.trim()
-        val listLin1 = line1.trim().split(" ")
-        if (" ".repeat(lineSpace.length) == lineSpace || lineSpace == "") {
+        val listLin1 = line1.split(" ")
+        if (" ".repeat(line1.length) == line1 || line1 == "") {
             writer.newLine()
             continue
         }
@@ -190,16 +189,16 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         val length = listLin1.sumBy { it.length }
         val maxLine = (list.maxBy { it.length } ?: "").length
         val quantity = listLin1.size - 1
-        val kol = (maxLine - length) / (quantity)
+        val numberSpaces = (maxLine - length) / (quantity)
         var kolNcek = (maxLine - length) % (quantity)
         for (ind in listLin1.indices) {
             writer.write(listLin1[ind])
             if (ind != listLin1.lastIndex) {
                 if (kolNcek > 0) {
-                    writer.write(" ".repeat(kol + 1))
+                    writer.write(" ".repeat(numberSpaces + 1))
                     kolNcek--
                 } else {
-                    writer.write(" ".repeat(kol))
+                    writer.write(" ".repeat(numberSpaces))
                     kolNcek--
                 }
             }
