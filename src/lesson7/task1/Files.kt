@@ -383,11 +383,9 @@ fun replacement(length: Int, word: String, listBIS: MutableList<String>): String
                 if (key !in listBIS) {
                     newWord1 = newWord1.replaceFirst(key, value.first())
                     listBIS.add(key)
-                    println(value.first())
                 } else {
                     newWord1 = newWord1.replaceFirst(key, value.last())
                     listBIS.remove(key)
-                    println(value.last())
                 }
             }
             length1--
