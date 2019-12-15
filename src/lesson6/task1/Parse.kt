@@ -172,12 +172,12 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
+    require(expression.matches(Regex("""\d+(\s\+?[-]?\s\d*)*""")))
     val parts = expression.split(" ")
     var sum = parts[0].toInt()
-    require(expression.matches(Regex("""\d*(\s\+?[-]?\s\d*)*""")))
-    for ((ind, element) in parts.withIndex()) {
-        if (element == "+") sum += parts[ind + 1].toInt()
-        if (element == "-") sum -= parts[ind + 1].toInt()
+    for (ind in 1 until parts.lastIndex step 2) {
+        if (parts[ind] == "+") sum += parts[ind + 1].toInt()
+        if (parts[ind] == "-") sum -= parts[ind + 1].toInt()
     }
     return sum
 }
