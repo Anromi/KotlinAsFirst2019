@@ -373,19 +373,19 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
-fun replacement(length: Int, word: String, listBIS: MutableList<String>): String {
+fun replacement(length: Int, word: String, listbis: MutableList<String>): String {
     var newWord1 = word
     var length1 = length
     val map = mapOf("**" to listOf("<b>", "</b>"), "*" to listOf("<i>", "</i>"), "~~" to listOf("<s>", "</s>"))
     for ((key, value) in map) {
         while (length1 != 0) {
             if (key in newWord1) {
-                if (key !in listBIS) {
+                if (key !in listbis) {
                     newWord1 = newWord1.replaceFirst(key, value.first())
-                    listBIS.add(key)
+                    listbis.add(key)
                 } else {
                     newWord1 = newWord1.replaceFirst(key, value.last())
-                    listBIS.remove(key)
+                    listbis.remove(key)
                 }
             }
             length1--
@@ -397,20 +397,20 @@ fun replacement(length: Int, word: String, listBIS: MutableList<String>): String
 
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val res = File(outputName).bufferedWriter()
-    val listBIS = mutableListOf<String>()
+    val listbis = mutableListOf<String>()
     res.write("<html>\n<body>\n<p>\n")
-    val lineNEW = File(inputName).readLines()
+    val linenew = File(inputName).readLines()
     var notEmtu = 0
-    for (line in lineNEW.indices) {
-        var lineNew = lineNEW[line]
-        if (lineNEW[line].isNotEmpty()) notEmtu++
-        if (lineNEW[line].isEmpty() && notEmtu != 0 && lineNEW.lastIndex != line) {
+    for (line in linenew.indices) {
+        var lineNew = linenew[line]
+        if (linenew[line].isNotEmpty()) notEmtu++
+        if (linenew[line].isEmpty() && notEmtu != 0 && linenew.lastIndex != line) {
             lineNew = "\n</p>\n<p>"
             notEmtu = 0
         }
         for (word in lineNew.split(" ")) {
             val length = word.length
-            res.write(replacement(length, word, listBIS))
+            res.write(replacement(length, word, listbis))
         }
     }
     res.write("\n</p>\n</body>\n</html>")
