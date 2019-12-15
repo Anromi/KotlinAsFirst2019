@@ -82,28 +82,19 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
  *
  */
-fun replacement(word: String) =
-    word.replace(Regex("[ыяю]")) {
-        when (it.value) {
-            "ы" -> "и"
-            "я" -> "а"
-            "ю" -> "у"
-            else -> it.value
-        }
-    }
 fun sibilants(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     val set = setOf('ж', 'ч', 'ш', 'щ', 'Ж', 'Ч', 'Ш', 'Щ')
+    val map = mapOf('ы' to 'и', 'я' to 'а', 'ю' to 'у', 'Ы' to 'И', 'Я' to 'А', 'Ю' to 'У')
     var res = ""
     for (word in File(inputName).readText().split(" ")) {
         var newWord = ""
         if (word.isNotEmpty()) {
             for (i in word.indices) {
-                if (i > 0 && word[i - 1] in set) {
-                    newWord += if (word[i] == word[i].toLowerCase()) replacement(word[i].toString())
-                    else replacement(word[i].toLowerCase().toString()).toUpperCase()
+                newWord += if (i > 0 && word[i - 1] in set && word[i] in map) {
+                    map[word[i]]
                 } else {
-                    newWord += word[i]
+                    word[i]
                 }
             }
         }
@@ -374,11 +365,10 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
-fun replacement(length: Int, word: String, listB: MutableList<String>): String {
+fun replacement(length: Int, word: String, listB: MutableList<String>, map: Map<String, List<String>>): String {
     var newWord1 = word
-    var length1 = length
-    val map = mapOf("**" to listOf("<b>", "</b>"), "*" to listOf("<i>", "</i>"), "~~" to listOf("<s>", "</s>"))
     for ((key, value) in map) {
+        var length1 = length
         while (length1 != 0) {
             if (key in newWord1) {
                 if (key !in listB) {
@@ -391,12 +381,12 @@ fun replacement(length: Int, word: String, listB: MutableList<String>): String {
             }
             length1--
         }
-        length1 = length
     }
     return newWord1
 }
 
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
+    val map = mapOf("**" to listOf("<b>", "</b>"), "*" to listOf("<i>", "</i>"), "~~" to listOf("<s>", "</s>"))
     val res = File(outputName).bufferedWriter()
     val listB = mutableListOf<String>()
     res.write("<html>\n<body>\n<p>\n")
@@ -411,7 +401,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         }
         for (word in lineNew.split(" ")) {
             val length = word.length
-            res.write(replacement(length, word, listB))
+            res.write(replacement(length, word, listB, map))
         }
     }
     res.write("\n</p>\n</body>\n</html>")
