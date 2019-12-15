@@ -160,7 +160,19 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    for (char in jumps) {
+        if (char !in '0'..'9' && char !in setOf('+', '%', '-', ' '))
+            return -1
+    }
+    val jumps0 = Regex("""[^\d +]""").replace(jumps, "")
+    val jumps1 = jumps0.split(" ")
+    var max = -1
+    for (i in 0 until jumps1.lastIndex step 2) {
+        if (jumps1[i].toInt() > max && jumps1[i + 1].contains('+')) max = jumps1[i].toInt()
+    }
+    return max
+}
 
 /**
  * Сложная
