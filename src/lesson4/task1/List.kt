@@ -275,7 +275,14 @@ fun decimal(digits: List<Int>, base: Int): Int = digits.fold(0) { res, i -> res 
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int): Int = TODO()
+fun decimalFromString(str: String, base: Int): Int {
+    val l = mutableListOf<Int>()
+    for (i in 0 until str.length) {
+        l += if (str[i] in 'a'..'z') str[i] - 'a' + 10
+        else str[i] - '0'
+    }
+    return decimal(l, base)
+}
 
 /**
  * Сложная
