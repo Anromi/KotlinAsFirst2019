@@ -367,8 +367,8 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  */
 fun replacement(length: Int, word: String, listB: MutableList<String>, map: Map<String, List<String>>): String {
     var newWord1 = word
+    var length1 = length
     for ((key, value) in map) {
-        var length1 = length
         while (length1 != 0) {
             if (key in newWord1) {
                 if (key !in listB) {
@@ -381,6 +381,7 @@ fun replacement(length: Int, word: String, listB: MutableList<String>, map: Map<
             }
             length1--
         }
+        length1 = length
     }
     return newWord1
 }
