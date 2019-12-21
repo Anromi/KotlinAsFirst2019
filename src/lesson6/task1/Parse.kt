@@ -3,8 +3,14 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import lesson3.task1.fib
+import lesson4.task1.convert
 import lesson8.task1.pathBetweenHexes
+import org.omg.PortableInterceptor.INACTIVE
+import java.lang.IllegalArgumentException
 import java.lang.IndexOutOfBoundsException
+import kotlin.math.ceil
+import kotlin.math.floor
 
 val months = listOf<String>(
     "января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа",

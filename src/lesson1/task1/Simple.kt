@@ -2,6 +2,7 @@
 
 package lesson1.task1
 
+import lesson7.task1.replacement
 import kotlin.math.*
 
 /**

@@ -56,9 +56,9 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     val map = mutableMapOf<String, Int>()
+    val read = File(inputName).readText().toLowerCase()
     for (sub in substrings) {
         map[sub] = 0
-        val read = File(inputName).readText().toLowerCase()
         var ind = read.indexOf(sub.toLowerCase(), 0)
         while (ind != -1) {
             map[sub] = map[sub]!! + 1
@@ -181,16 +181,16 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         val maxLine = (list.maxBy { it.length } ?: "").length
         val quantity = listLin1.size - 1
         val numberSpaces = (maxLine - length) / (quantity)
-        var kolNcek = (maxLine - length) % (quantity)
+        var mod = (maxLine - length) % (quantity)
         for (ind in listLin1.indices) {
             writer.write(listLin1[ind])
             if (ind != listLin1.lastIndex) {
-                if (kolNcek > 0) {
+                if (mod > 0) {
                     writer.write(" ".repeat(numberSpaces + 1))
-                    kolNcek--
+                    mod--
                 } else {
                     writer.write(" ".repeat(numberSpaces))
-                    kolNcek--
+                    mod--
                 }
             }
         }
@@ -367,8 +367,8 @@ Suspendisse ~~et elit in enim tempus iaculis~~.
  */
 fun replacement(length: Int, word: String, listB: MutableList<String>, map: Map<String, List<String>>): String {
     var newWord1 = word
-    var length1 = length
     for ((key, value) in map) {
+        var length1 = length
         while (length1 != 0) {
             if (key in newWord1) {
                 if (key !in listB) {
@@ -381,7 +381,6 @@ fun replacement(length: Int, word: String, listB: MutableList<String>, map: Map<
             }
             length1--
         }
-        length1 = length
     }
     return newWord1
 }
