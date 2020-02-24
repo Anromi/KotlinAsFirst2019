@@ -3,7 +3,9 @@ package lesson7.task1
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions.assertThrows
 import java.io.File
+import java.lang.IllegalArgumentException
 
 class Tests {
 
