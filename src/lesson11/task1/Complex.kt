@@ -60,16 +60,30 @@ class Complex(val re: Double, val im: Double) {
     /**
      * Сравнение на равенство
      */
-    override fun equals(other: Any?): Boolean =
-        other is Complex &&
-                re == other.re &&
-                im == other.im
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
 
-    override fun hashCode(): Int = TODO() // что нужно тут ?
-    // hashCode - число, если более точно, то это битовая строка фиксированной длины, полученная из массива произвольной длины
+        other as Complex
+
+        if (re != other.re) return false
+        if (im != other.im) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = re.hashCode()
+        result = 31 * result + im.hashCode()
+        return result
+    }
 
     /**
      * Преобразование в строку
      */
-    override fun toString(): String = TODO()
+    override fun toString(): String = when {
+        im > 0 -> "$re+${im}i"
+        im < 0 -> "$re${im}i"
+        else -> "re"
+    }
 }
