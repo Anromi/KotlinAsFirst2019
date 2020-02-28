@@ -84,6 +84,6 @@ class Complex(val re: Double, val im: Double) {
     override fun toString(): String = when {
         im > 0 -> "$re+${im}i"
         im < 0 -> "$re${im}i"
-        else -> "re"
+        else -> "$re"
     }
 }
