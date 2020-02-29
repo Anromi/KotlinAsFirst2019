@@ -3,7 +3,6 @@
 package lesson11.task1
 
 import lesson1.task1.sqr
-import kotlin.math.floor
 
 /**
  * Класс "комплексое число".
