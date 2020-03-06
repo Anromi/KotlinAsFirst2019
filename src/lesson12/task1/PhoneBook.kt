@@ -22,9 +22,11 @@ class PhoneBook {
 
     private val phoneBook = mutableMapOf<String, MutableSet<String>>()
 
-    private val checkName = Regex("""[A-ZА-ЯЁ][a-zа-яё]* [A-ZА-ЯЁ][a-zа-яё]*""")
+    companion object {
+        private val checkName = Regex("""[A-ZА-ЯЁ][a-zа-яё]* [A-ZА-ЯЁ][a-zа-яё]*""")
 
-    private val checkTelephone = Regex("""^\d[+][-][*][#]""")
+        private val checkTelephone = Regex("""^\d[+][-][*][#]""")
+    }
 
     /**
      * Добавить человека.
@@ -66,13 +68,13 @@ class PhoneBook {
         require(name.matches(checkName))
         if (name !in phoneBook) return false
         for ((firstName, phones) in phoneBook) {
-            if (phone !in phones) {
-                if (name == firstName) {
-                    if (phoneBook[firstName] == null) phoneBook[firstName] = mutableSetOf(phone)
-                    else phoneBook[firstName]?.add(phone)
-                    return true
-                }
-            } else return false
+            if (phone in phones) {
+                return false
+            }
+            if (name == firstName) {
+                phoneBook[name]?.add(phone)
+                return true
+            }
         }
         return false
     }
@@ -86,12 +88,12 @@ class PhoneBook {
     fun removePhone(name: String, phone: String): Boolean {
         require(!phone.matches(checkTelephone))
         require(name.matches(checkName))
-        for ((firstName, telephone) in phoneBook) {
-            if (name == firstName) {
-                return if (phone in telephone) {
-                    phoneBook[firstName]?.remove(phone)
-                    true
-                } else false
+        val item = phoneBook[name]
+        if (item != null) {
+            return if (phone !in item) false
+            else {
+                item.remove(phone)
+                true
             }
         }
         return false
@@ -103,8 +105,7 @@ class PhoneBook {
      */
     fun phones(name: String): Set<String> {
         require(name.matches(checkName))
-        return if (phoneBook[name] != null) phoneBook[name]!!.toSet()
-        else setOf()
+        return phoneBook[name] ?: return setOf()
     }
 
     /**

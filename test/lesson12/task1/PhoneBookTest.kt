@@ -3,6 +3,7 @@ package lesson12.task1
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import java.lang.IllegalArgumentException
 
 internal class PhoneBookTest {
 
@@ -12,6 +13,7 @@ internal class PhoneBookTest {
         assertTrue(book.addHuman("Иванов Петр"))
         assertTrue(book.addHuman("Васильев Дмитрий"))
         assertFalse(book.addHuman("Иванов Петр"))
+        assertThrows(IllegalArgumentException::class.java) {book.addHuman("Ошибка 123")}
     }
 
     @Test
