@@ -50,10 +50,9 @@ class PhoneBook {
      */
     fun removeHuman(name: String): Boolean {
         require(name.matches(checkName))
-        return if (phoneBook[name] != null) {
-            phoneBook.remove(name)
-            true
-        } else false
+        if (!phoneBook.contains(name)) return false
+        phoneBook.remove(name)
+        return true
     }
 
     /**
