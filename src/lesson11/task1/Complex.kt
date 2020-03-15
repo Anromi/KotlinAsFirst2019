@@ -14,19 +14,20 @@ import lesson1.task1.sqr
  * Аргументы конструктора -- вещественная и мнимая часть числа.
  */
 
+fun Complex(s: String): Complex {
+    val list = mutableListOf<Double>()
+    for (i in 0..1) {
+        list.add(Regex("[+-]*[\\d.]*").findAll(s).elementAt(i).value.toDouble())
+    }
+    return Complex(list.first(), list.last())
+}
+
 class Complex(val re: Double, val im: Double) {
 
     /**
      * Конструктор из вещественного числа
      */
     constructor(x: Double) : this(x, 0.0)
-    /**
-     * Конструктор из строки вида x+yi
-     */
-    constructor(s: String) : this(
-        Regex("[+-]*[\\d.]*").findAll(s).elementAt(0).value.toDouble(),
-        Regex("[+-]*[\\d.]*").findAll(s).elementAt(1).value.toDouble()
-    )
 
     /**
      * Сложение.

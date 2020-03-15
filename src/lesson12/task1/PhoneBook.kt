@@ -67,15 +67,10 @@ class PhoneBook {
         require(name.matches(checkName))
         if (name !in phoneBook) return false
         for ((firstName, phones) in phoneBook) {
-            if (phone in phones) {
-                return false
-            }
-            if (name == firstName) {
-                phoneBook[name]?.add(phone)
-                return true
-            }
+            if (phone in phones) return false
         }
-        return false
+        phoneBook[name]?.add(phone)
+        return true
     }
 
     /**
